@@ -1,1 +1,125 @@
 /** The Code Goes Here, Please Add some Documentations and comments to make the code more readable **/
+#include <iostream>
+#include <string>
+using namespace std;
+char board[6][7];
+int draw_test=0;
+void Print(char board[6][7])
+{
+
+    cout<<" 1   2   3   4   5   6   7\n";
+	for(int a = 0; a<= 5; a++)
+	{
+		for(int b =0; b <= 6; b++) cout<<char(218)<<char(196)<<char(191)<<" ";
+		cout<<'\n';
+		for(int b =0; b <= 6; b++) cout<<char(179)<<board[a][b]<<char(179)<<" ";
+		cout<<'\n';
+		for(int b =0; b <= 6; b++) cout<<char(192)<<char(196)<<char(217)<<" ";
+		cout<<'\n';
+	}
+}
+bool insert_(char board[6][7],char player,int column)
+{
+ if(column>=0 && column<=6)
+ {
+     if(board[0][column]==' ')
+     {
+        int i;
+        for(i = 0;board[i][column]==' ';i++)
+            {
+                if(i == 5)
+                  {
+                    board[i][column]=player;
+                  }
+            }
+        board[i-1][column]=player;
+     }
+     else
+     {
+         cout<<"column is full"<<endl;
+         return false;
+     }
+
+ }
+ else
+ {
+     cout<<"value error"<<endl;
+     return false;
+ }
+    Print(board);
+    draw_test++;
+    return true;
+
+}
+
+
+void switchPlayer(char &player)
+{
+    if(player == 'X')
+    {
+        player = 'O';
+    }
+    else
+    {
+        player = 'X';
+    }
+
+
+}
+
+
+
+int main()
+{
+    char player='X';
+    bool win=true;
+    int cond1=0;
+    for(int a =0;a <= 5; a++)
+    {
+		for(int b = 0; b<=6; b++)
+            {
+                board[a][b]=' ';
+
+            }
+    }
+    Print(board);
+    do
+    {
+        if(player=='X')
+        {
+            cout<<"Player 1's turn"<<endl;
+
+        }
+        else
+        {
+            cout<<"Player 2's turn"<<endl;
+
+        }
+        int column;
+        cin>>column;
+        column--;
+        if(insert_(board,player,column))
+        {
+            switchPlayer(player);
+        }
+        if(draw_test==42)
+        {
+            cout<<"Game is draw"<<endl;
+            break;
+
+        }
+
+        if (cond1==1)
+        {
+            win=true;
+        }
+        else
+        {
+            win=false;
+        }
+
+    }while(!win);
+
+
+    return 0;
+}
